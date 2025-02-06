@@ -1,0 +1,15 @@
+.home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    gap: 40px; /* Space between buttons */
+    padding: 20px; /* Space from margins */
+  }
+  
+  @media (max-width: 768px) {
+    .home-container {
+      flex-direction: column; /* Stack buttons vertically on mobile */
+      gap: 20px; /* Slightly separate buttons */
+    }
+  }

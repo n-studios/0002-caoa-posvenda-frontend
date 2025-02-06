@@ -1,18 +1,16 @@
-@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
-
 .neumorphism-button {
-  width: 200px; /* Smaller width */
-  height: 60px; /* Smaller height */
+  width: 200px;
+  height: 60px;
   background: #f3f0f1;
   position: relative;
-  border-radius: 20px; /* Slightly smaller border radius */
+  border-radius: 20px;
   text-align: center;
   cursor: pointer;
   transition: all 0.1s ease-in-out;
   font-family: "Montserrat", sans-serif;
-  font-size: 18px; /* Smaller font size */
-  font-weight: 600; /* semibold */
-  color: #ff7f50; /* Coral text color */
+  font-size: 18px;
+  font-weight: 600;
+  color: #ff6347;
   border: none;
   outline: none;
   box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.8),
@@ -20,7 +18,7 @@
 }
 
 .neumorphism-button:hover {
-  opacity: 0.8; /* Slightly less opacity on hover */
+  opacity: 0.8;
   box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.8),
     6px 6px 10px rgba(0, 0, 0, 0.2);
 }
@@ -29,22 +27,21 @@
   opacity: 1;
   box-shadow: inset -4px -4px 8px rgba(255, 255, 255, 0.5),
     inset 8px 8px 16px rgba(0, 0, 0, 0.1);
-  color: #ff69b4; /* Pinkish color when clicked */
+  color: #ffb6c1;
 }
 
-/* Responsive Styles */
 @media (max-width: 768px) {
   .neumorphism-button {
-    width: 150px; /* Smaller width for tablets and smaller screens */
-    height: 50px; /* Smaller height */
-    font-size: 16px; /* Smaller font size */
+    width: 150px;
+    height: 50px;
+    font-size: 16px;
   }
 }
 
 @media (max-width: 480px) {
   .neumorphism-button {
-    width: 120px; /* Smaller width for mobile phones */
-    height: 40px; /* Smaller height */
-    font-size: 14px; /* Smaller font size */
+    width: 120px;
+    height: 40px;
+    font-size: 14px;
   }
 }
