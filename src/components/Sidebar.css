@@ -2,9 +2,9 @@
   width: 250px;
   background-color: #000000;
   color: white;
-  padding: 20px;
   overflow-y: auto;
-  font-family: "Montserrat", sans-serif;
+  padding: 20px;
+  margin-right: 20px;
 }
 
 .sidebar h3 {
@@ -41,8 +41,9 @@
 
 @media (max-width: 768px) {
   .sidebar {
-    width: 200px;
+    width: 100%;
     padding: 15px;
+    margin-right: 0; 
   }
 
   .sidebar h3 {
@@ -57,7 +58,6 @@
 
 @media (max-width: 480px) {
   .sidebar {
-    width: 150px;
     padding: 10px;
   }
 

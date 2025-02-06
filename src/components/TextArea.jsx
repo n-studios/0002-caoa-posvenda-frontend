@@ -6,11 +6,11 @@ const TextArea = ({ inputText, setInputText, onSendMessage, isLoading }) => {
       <textarea
         value={inputText}
         onChange={(e) => setInputText(e.target.value)}
-        placeholder="Type your message..."
+        placeholder="Escreva sua mensagem..."
         disabled={isLoading}
       />
       <button onClick={onSendMessage} disabled={isLoading}>
-        {isLoading ? "Sending..." : "Send"}
+        {isLoading ? "Enviando..." : "Enviar"}
       </button>
     </div>
   );

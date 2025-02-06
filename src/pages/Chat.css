@@ -1,87 +1,72 @@
 .chat-page {
-    display: flex;
-    height: 80vh;
-    background-color: #f3f0f1;
-    font-family: "Montserrat", sans-serif;
-    margin: 0;
+  display: flex;
+  height: 80vh;
+}
+
+.chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.chat-display {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.text-area {
+  display: flex;
+  padding: 20px;
+  background-color: #fff;
+  border-top: 1px solid #ddd;
+}
+
+.return-button {
+  align-self: flex-end;
+  margin-bottom: 50px;
+  margin-right: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .chat-page {
+    flex-direction: column;
   }
-  
+
   .chat-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    margin: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+    margin: 10px;
   }
-  
-  .sidebar {
-    width: 250px;
-    color: white;
-    padding: 20px;
-    overflow-y: auto;
-    margin: 
-  }
-  
+
   .chat-display {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
-    background-color: #f9f9f9;
-    border-bottom: 1px solid #ddd;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    padding: 15px;
   }
-  
+
   .text-area {
-    display: flex;
-    padding: 20px;
-    background-color: #fff;
-    border-top: 1px solid #ddd;
+    padding: 15px;
   }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .chat-page {
-      flex-direction: column;
-    }
-  
-    .sidebar {
-      width: 100%;
-      height: auto;
-      padding: 15px;
-    }
-  
-    .chat-container {
-      margin: 10px;
-    }
-  
-    .chat-display {
-      padding: 15px;
-    }
-  
-    .text-area {
-      padding: 15px;
-    }
+}
+
+@media (max-width: 480px) {
+  .chat-container {
+    margin: 5px;
   }
-  
-  @media (max-width: 480px) {
-    .sidebar {
-      padding: 10px;
-    }
-  
-    .chat-container {
-      margin: 5px;
-    }
-  
-    .chat-display {
-      padding: 10px;
-    }
-  
-    .text-area {
-      padding: 10px;
-    }
+
+  .chat-display {
+    padding: 10px;
   }
+
+  .text-area {
+    padding: 10px;
+  }
+}

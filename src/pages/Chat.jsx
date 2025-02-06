@@ -46,7 +46,7 @@ const Chat = () => {
 
   const handleSendMessage = async () => {
     if (!inputText.trim() || !selectedNamespace) {
-      setError("Please enter a message and select a namespace.");
+      setError("Por favor escreva sua pergunta e selecione um manual");
       return;
     }
 
@@ -76,7 +76,7 @@ const Chat = () => {
       setMessages((prevMessages) => [
         ...prevMessages,
         { sender: "user", text: inputText },
-        { sender: "bot", text: formatMessageWithLinks(responseData.message) }, // ✅ Format message to include links
+        { sender: "bot", text: formatMessageWithLinks(responseData.message) },
       ]);
 
       setInputText("");
@@ -105,7 +105,9 @@ const Chat = () => {
         {error && <ErrorDisplay error={error} />}
         {isLoading && <Loader />}
       </div>
-      <Button onClick={() => navigate("/")} buttonText={"Return to Home"} />
+      <div className="return-button">
+        <Button onClick={() => navigate("/")} buttonText={"Página Inicial"} />
+      </div>
     </div>
   );
 };
