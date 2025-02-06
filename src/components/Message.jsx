@@ -1,9 +1,10 @@
-const Message = () => {
+import "./Message.css";
+
+const Message = ({ sender, text }) => {
   return (
-    <div>
-      <p></p>
+    <div className={`message ${sender}`}>
+      <p dangerouslySetInnerHTML={{ __html: text }} />
     </div>
   );
 };
-
 export default Message;

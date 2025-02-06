@@ -1,0 +1,56 @@
+.message {
+    max-width: 70%;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    position: relative;
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+  }
+  
+  .message.user {
+    align-self: flex-end;
+    background-color: #000000;
+    color: white;
+  }
+  
+  .message.bot {
+    align-self: flex-start;
+    background-color: #e0e5ec;
+    color: #333;
+  }
+  
+  /* Optional: Add a small triangle for chat bubbles */
+  .message.user::after {
+    content: "";
+    position: absolute;
+    right: -10px;
+    top: 10px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent #000000;
+  }
+  
+  .message.bot::after {
+    content: "";
+    position: absolute;
+    left: -10px;
+    top: 10px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent #e0e5ec transparent transparent;
+  }
+  
+  @media (max-width: 768px) {
+    .message {
+      font-size: 13px;
+      padding: 8px 12px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .message {
+      font-size: 12px;
+      padding: 6px 10px;
+    }
+  }

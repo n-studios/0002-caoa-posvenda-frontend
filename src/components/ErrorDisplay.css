@@ -1,0 +1,25 @@
+.error-display {
+    padding: 10px;
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #c62828;
+    border-radius: 5px;
+    margin: 10px 0;
+    text-align: center;
+    font-size: 14px;
+    font-family: "Montserrat", sans-serif;
+  }
+  
+  @media (max-width: 768px) {
+    .error-display {
+      font-size: 13px;
+      padding: 8px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .error-display {
+      font-size: 12px;
+      padding: 6px;
+    }
+  }
