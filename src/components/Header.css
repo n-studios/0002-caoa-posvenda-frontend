@@ -1,5 +1,6 @@
 .header {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -9,7 +10,8 @@
 }
 
 .header-logo {
-  height: 80px;
+  margin-left: -10px;
+  height: 60px;
   transition: transform 0.3s ease;
 }
 
@@ -17,14 +19,29 @@
   transform: scale(1.1);
 }
 
+.header h3 {
+  margin: 5px 0 0 0; 
+  color: white; 
+  font-size: 18px; 
+  font-weight: 500;
+}
+
 @media (max-width: 768px) {
   .header-logo {
-    height: 60px;
+    height: 40px;
+  }
+
+  .header h3 {
+    font-size: 16px; 
   }
 }
 
 @media (max-width: 480px) {
   .header-logo {
-    height: 40px;
+    height: 20px;
+  }
+
+  .header h3 {
+    font-size: 14px; 
   }
 }
