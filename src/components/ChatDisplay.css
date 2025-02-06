@@ -1,0 +1,26 @@
+.chat-display {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #f3f0f1;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .chat-display {
+    scroll-behavior: smooth;
+  }
+  
+  @media (max-width: 768px) {
+    .chat-display {
+      padding: 15px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .chat-display {
+      padding: 10px;
+    }
+  }
