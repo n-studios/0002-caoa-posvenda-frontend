@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
-import "./Trainer.css"; // Import the CSS file
+import "./Trainer.css";
 
 const Trainer = () => {
   const navigate = useNavigate();
@@ -27,8 +27,8 @@ const Trainer = () => {
             <option value="option2">Pergunta 2</option>
             <option value="option3">Pergunta 3</option>
           </select>
-          <textarea name="" id="">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          <textarea name="" id="" rows="3" cols="1">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit?
           </textarea>
         </div>
         <div className="answer">
@@ -40,7 +40,7 @@ const Trainer = () => {
             <option value="option2">Resposta 2</option>
             <option value="option3">Resposta 3</option>
           </select>
-          <textarea name="" id="">
+          <textarea name="" id="" rows="4" cols="50">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
             efficitur orci rutrum, feugiat tortor eget, cursus tellus. Curabitur
             gravida, libero eget volutpat feugiat, odio erat rhoncus elit, vitae
