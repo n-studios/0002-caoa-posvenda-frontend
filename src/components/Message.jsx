@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import "./Message.css";
 
 const Message = ({ sender, text }) => {
@@ -7,4 +8,10 @@ const Message = ({ sender, text }) => {
     </div>
   );
 };
+
+Message.propTypes = {
+  sender: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+};
+
 export default Message;
