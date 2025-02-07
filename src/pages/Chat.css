@@ -57,6 +57,11 @@
   }
 }
 
+.return-button {
+  margin-bottom: 0;
+  margin-right: 0;
+}
+
 @media (max-width: 480px) {
   .chat-container {
     margin: 5px;
@@ -68,5 +73,10 @@
 
   .text-area {
     padding: 10px;
+  }
+
+  .return-button {
+    margin-bottom: 0;
+    margin-right: 0;
   }
 }

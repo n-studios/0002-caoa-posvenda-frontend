@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import PropTypes from "prop-types";
 import Message from "./Message";
 import "./ChatDisplay.css";
 
@@ -19,5 +20,13 @@ const ChatDisplay = ({ messages }) => {
   );
 };
 
-export default ChatDisplay;
+ChatDisplay.propTypes = {
+  messages: PropTypes.arrayOf(
+    PropTypes.shape({
+      sender: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};
 
+export default ChatDisplay;

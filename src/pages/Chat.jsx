@@ -64,7 +64,7 @@ const Chat = () => {
 
     const messageData = {
       message: inputText,
-      user_id: "21972827212",
+      user_id: "11999999999",
       namespace: selectedNamespace,
     };
 

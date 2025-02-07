@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import "./TextArea.css";
 
 const TextArea = ({ inputText, setInputText, onSendMessage, isLoading }) => {
@@ -14,6 +15,13 @@ const TextArea = ({ inputText, setInputText, onSendMessage, isLoading }) => {
       </button>
     </div>
   );
+};
+
+TextArea.propTypes = {
+  inputText: PropTypes.string.isRequired,
+  setInputText: PropTypes.func.isRequired,
+  onSendMessage: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 export default TextArea;
