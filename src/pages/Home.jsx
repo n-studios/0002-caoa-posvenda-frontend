@@ -13,7 +13,7 @@ const Home = () => {
     <div className="home-container">
       <Button onClick={() => handleButtonClick("/chat")} buttonText={"CHAT"} />
       <Button
-        onClick={() => handleButtonClick("/training")}
+        onClick={() => handleButtonClick("/trainer")}
         buttonText={"TRAINER"}
       />
       <Button
