@@ -1,0 +1,190 @@
+.trainer-page {
+    height: 80vh;
+    width: 60vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.trainer-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 20px;
+  }
+  
+  .trainer-container h1 {
+    font-size: 24px;
+    font-family: "Montserrat", sans-serif;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .config,
+  .question,
+  .answer {
+    margin-bottom: 20px;
+  }
+  
+  .config h3,
+  .question label,
+  .answer label {
+    font-size: 18px;
+    font-family: "Montserrat", sans-serif;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .config h4 {
+    font-size: 16px;
+    font-family: "Montserrat", sans-serif;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #555;
+  }
+  
+  .config p {
+    font-size: 14px;
+    font-family: "Montserrat", sans-serif;
+    color: #777;
+    margin-bottom: 20px;
+  }
+  
+  .dropdown-select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+    font-family: "Montserrat", sans-serif;
+    color: #333;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 20px;
+  }
+  
+  .dropdown-select:focus {
+    outline: none;
+    border-color: #000000;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+    font-family: "Montserrat", sans-serif;
+    color: #333;
+    resize: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 20px;
+  }
+  
+  textarea:focus {
+    outline: none;
+    border-color: #000000;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #000000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: "Montserrat", sans-serif;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #333;
+  }
+  
+/* Responsive Design */
+@media (max-width: 768px) {
+    .trainer-page {
+      flex-direction: column;
+    }
+  
+    .trainer-container {
+      margin: 10px;
+      padding: 15px;
+    }
+  
+    .trainer-container h1 {
+      font-size: 20px;
+    }
+  
+    .config h3,
+    .question label,
+    .answer label {
+      font-size: 16px;
+    }
+  
+    .config h4 {
+      font-size: 14px;
+    }
+  
+    .config p {
+      font-size: 12px;
+    }
+  
+    .dropdown-select,
+    textarea {
+      font-size: 14px;
+      padding: 8px;
+    }
+  
+    button,
+    .return-button {
+      font-size: 14px;
+      padding: 8px 16px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .trainer-container {
+      margin: 5px;
+      padding: 10px;
+    }
+  
+    .trainer-container h1 {
+      font-size: 18px;
+    }
+  
+    .config h3,
+    .question label,
+    .answer label {
+      font-size: 14px;
+    }
+  
+    .config h4 {
+      font-size: 12px;
+    }
+  
+    .config p {
+      font-size: 10px;
+    }
+  
+    .dropdown-select,
+    textarea {
+      font-size: 12px;
+      padding: 6px;
+    }
+  
+    button,
+    .return-button {
+      font-size: 12px;
+      padding: 6px 12px;
+    }
+  }
