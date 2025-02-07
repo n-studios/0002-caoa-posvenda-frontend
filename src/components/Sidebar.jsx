@@ -1,5 +1,4 @@
-// src/components/Sidebar.jsx
-import React from "react";
+import PropTypes from "prop-types";
 import "./Sidebar.css";
 
 const Sidebar = ({ namespaces, selectedNamespace, onSelectNamespace }) => {
@@ -19,6 +18,12 @@ const Sidebar = ({ namespaces, selectedNamespace, onSelectNamespace }) => {
       </ul>
     </div>
   );
+};
+
+Sidebar.propTypes = {
+  namespaces: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selectedNamespace: PropTypes.string,
+  onSelectNamespace: PropTypes.func.isRequired,
 };
 
 export default Sidebar;
