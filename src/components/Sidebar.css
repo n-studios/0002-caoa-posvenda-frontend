@@ -43,7 +43,7 @@
   .sidebar {
     width: 100%;
     padding: 15px;
-    margin-right: 0; 
+    margin: 0; 
   }
 
   .sidebar h3 {
@@ -59,6 +59,7 @@
 @media (max-width: 480px) {
   .sidebar {
     padding: 10px;
+    margin: 0; 
   }
 
   .sidebar h3 {
