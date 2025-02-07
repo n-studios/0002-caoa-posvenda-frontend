@@ -37,11 +37,20 @@ const Chat = () => {
 
   const formatMessageWithLinks = (text) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
-    return text.replace(
-      urlRegex,
-      (url) =>
-        `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`
-    );
+    let match;
+    const parts = [];
+    let lastIndex = 0;
+
+    while ((match = urlRegex.exec(text)) !== null) {
+      parts.push(text.slice(lastIndex, match.index));
+      parts.push(
+        `<a href="${match[0]}" target="_blank" rel="noopener noreferrer">${match[0]}</a>`
+      );
+      lastIndex = match.index + match[0].length;
+    }
+
+    parts.push(text.slice(lastIndex));
+    return parts.join("");
   };
 
   const handleSendMessage = async () => {
@@ -59,6 +68,11 @@ const Chat = () => {
       namespace: selectedNamespace,
     };
 
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { sender: "user", text: inputText },
+    ]);
+
     try {
       const response = await fetch(`${API_BASE_URL}/chat/`, {
         method: "POST",
@@ -72,10 +86,8 @@ const Chat = () => {
       }
 
       const responseData = await response.json();
-
       setMessages((prevMessages) => [
         ...prevMessages,
-        { sender: "user", text: inputText },
         { sender: "bot", text: formatMessageWithLinks(responseData.message) },
       ]);
 
