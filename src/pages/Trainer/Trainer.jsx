@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/shared-components/Button";
+import Config from "../../components/trainer-components/Config";
 import "./Trainer.css";
 
 const Trainer = () => {
@@ -9,17 +10,7 @@ const Trainer = () => {
     <div className="trainer-page">
       <div className="trainer-container">
         <h1>Trainer</h1>
-        <div className="config">
-          <h3>Configurações</h3>
-          <label htmlFor="config-dropdown">Tipo do Experimento:</label>
-          <select id="config-dropdown" className="dropdown-select">
-            <option value="option1">Opção 1</option>
-            <option value="option2">Opção 2</option>
-            <option value="option3">Opção 3</option>
-          </select>
-          <h4>Descrição do Experimento</h4>
-          <p>Sample Text</p>
-        </div>
+        <Config />
         <div className="question">
           <label htmlFor="config-dropdown">Qual assunto treinar:</label>
           <select id="config-dropdown" className="dropdown-select">

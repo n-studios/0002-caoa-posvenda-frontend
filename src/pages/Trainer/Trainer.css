@@ -23,32 +23,16 @@
     color: #333;
   }
   
-  .config,
   .question,
   .answer {
     margin-bottom: 20px;
   }
   
-  .config h3,
   .question label,
   .answer label {
     font-size: 18px;
     margin-bottom: 10px;
     color: #333;
-  }
-  
-  .config h4 {
-    font-size: 16px;
-    font-family: "Montserrat", sans-serif;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    color: #555;
-  }
-  
-  .config p {
-    font-size: 14px;
-    color: #777;
-    margin-bottom: 20px;
   }
   
   .dropdown-select {
@@ -122,19 +106,10 @@
     .trainer-container h1 {
       font-size: 20px;
     }
-  
-    .config h3,
+
     .question label,
     .answer label {
       font-size: 16px;
-    }
-  
-    .config h4 {
-      font-size: 14px;
-    }
-  
-    .config p {
-      font-size: 12px;
     }
   
     .dropdown-select,
@@ -164,18 +139,9 @@
       font-size: 18px;
     }
   
-    .config h3,
     .question label,
     .answer label {
       font-size: 14px;
-    }
-  
-    .config h4 {
-      font-size: 12px;
-    }
-  
-    .config p {
-      font-size: 10px;
     }
   
     .dropdown-select,
