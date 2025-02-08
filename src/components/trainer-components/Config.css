@@ -31,6 +31,10 @@
     transition: transform 0.3s ease;
   }
   
+  .toggle-icon.open {
+    transform: rotate(90deg);
+  }
+  
   .config-content {
     max-height: 0;
     padding: 0 10px;

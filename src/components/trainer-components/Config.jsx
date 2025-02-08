@@ -22,9 +22,7 @@ const Config = () => {
     <div className="config">
       <div className="config-header" onClick={handleToggle}>
         <h3>Configurações</h3>
-        <span className={`toggle-icon ${isConfigOpen ? "open" : ""}`}>
-          {isConfigOpen ? "▼" : "►"}
-        </span>
+        <span className={`toggle-icon ${isConfigOpen ? "open" : ""}`}>►</span>
       </div>
 
       <div
