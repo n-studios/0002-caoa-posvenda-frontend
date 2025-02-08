@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
-import Home from "./pages/Home";
-import Chat from "./pages/Chat";
-import Trainer from "./pages/Trainer";
-import Inventory from "./pages/Inventory";
+import Header from "./components/layout-components/Header";
+import Home from "./pages/Home/Home";
+import Chat from "./pages/Chat/Chat";
+import Trainer from "./pages/Trainer/Trainer";
+import Inventory from "./pages/Inventory/Inventory";
 
 const App = () => {
   return (

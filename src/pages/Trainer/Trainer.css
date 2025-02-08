@@ -1,6 +1,6 @@
 .trainer-page {
     height: 80vh;
-    width: 60vw;
+    width: 75vw;
     margin-left: auto;
     margin-right: auto;
 }
@@ -19,7 +19,6 @@
   
   .trainer-container h1 {
     font-size: 24px;
-    font-family: "Montserrat", sans-serif;
     margin-bottom: 20px;
     color: #333;
   }
@@ -34,7 +33,6 @@
   .question label,
   .answer label {
     font-size: 18px;
-    font-family: "Montserrat", sans-serif;
     margin-bottom: 10px;
     color: #333;
   }
@@ -49,7 +47,6 @@
   
   .config p {
     font-size: 14px;
-    font-family: "Montserrat", sans-serif;
     color: #777;
     margin-bottom: 20px;
   }
@@ -61,7 +58,6 @@
     border-radius: 5px;
     background-color: #fff;
     font-size: 16px;
-    font-family: "Montserrat", sans-serif;
     color: #333;
     cursor: pointer;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -75,13 +71,14 @@
   }
   
   textarea {
-    width: 100%;
+    width: 97.5%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
     font-size: 16px;
-    font-family: "Montserrat", sans-serif;
     color: #333;
     resize: none;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -94,7 +91,8 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   }
   
-  button {
+  .generic-button {
+    width: 20% ;
     padding: 10px 20px;
     background-color: #000000;
     color: white;
@@ -102,11 +100,10 @@
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    font-family: "Montserrat", sans-serif;
     transition: background-color 0.3s ease;
   }
   
-  button:hover {
+  .generic-button:hover {
     background-color: #333;
   }
   
@@ -114,6 +111,7 @@
 @media (max-width: 768px) {
     .trainer-page {
       flex-direction: column;
+      width: 95vw;
     }
   
     .trainer-container {
@@ -153,6 +151,10 @@
   }
   
   @media (max-width: 480px) {
+    .trainer-page {
+      flex-direction: column;
+      width: 95vw;
+    }
     .trainer-container {
       margin: 5px;
       padding: 10px;
@@ -182,7 +184,7 @@
       padding: 6px;
     }
   
-    button,
+    .generic-button,
     .return-button {
       font-size: 12px;
       padding: 6px 12px;
