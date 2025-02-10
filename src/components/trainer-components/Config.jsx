@@ -13,6 +13,8 @@ const Config = ({
 }) => {
   const [isConfigOpen, setIsConfigOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const [update, setUpdate] = useState(false);
+  const [create, setCreate] = useState(false);
 
   const handleToggle = () => {
     if (isConfigOpen) {
@@ -26,6 +28,17 @@ const Config = ({
       setIsClosing(false);
     }
   };
+
+  const handleUpdateButton = () => {
+    setUpdate(!update);
+  };
+
+  const handleSendUpdate = () => {
+    setUpdate(false);
+    onUpdateRubric();
+  };
+
+  const selectedRubricObject = rubrics.find((r) => r._id === selectedRubric);
 
   return (
     <div className="config">
@@ -57,39 +70,52 @@ const Config = ({
         {selectedRubric && (
           <>
             <h4>Descrição do Experimento</h4>
-            <p>
-              {rubrics.find((r) => r._id === selectedRubric)?.rating_system}
-            </p>
+            <p>{selectedRubricObject.rating_system}</p>
+            <button className="generic-button" onClick={handleUpdateButton}>
+              {update ? `Fechar` : `Editar`}
+            </button>
+            {update && (
+              <div className="crud-rubric">
+                <h2>Editar Rúbrica</h2>
+                <input
+                  type="text"
+                  name="rating_system"
+                  placeholder="Rating System"
+                  value={selectedRubricObject.rating_system}
+                  onChange={(e) =>
+                    onInputChange(
+                      selectedRubricObject._id,
+                      "rating_system",
+                      e.target.value
+                    )
+                  }
+                />
+                <input
+                  type="text"
+                  name="rubric"
+                  placeholder="Rubric"
+                  value={selectedRubricObject.rubric}
+                  onChange={(e) =>
+                    onInputChange(
+                      selectedRubricObject._id,
+                      "rubric",
+                      e.target.value
+                    )
+                  }
+                />
+                <button className="generic-button" onClick={handleSendUpdate}>
+                  Enviar
+                </button>
+                <button
+                  className="generic-button"
+                  onClick={() => onDeleteRubric(selectedRubricObject._id)}
+                >
+                  Deletar
+                </button>
+              </div>
+            )}
           </>
         )}
-
-        <div className="crud-rubric">
-          <h2>Create/Update Rubric</h2>
-          <input
-            type="text"
-            name="rubric_id"
-            placeholder="Rubric ID"
-            value={newRubric.rubric_id}
-            onChange={onInputChange}
-          />
-          <input
-            type="text"
-            name="rating_system"
-            placeholder="Rating System"
-            value={newRubric.rating_system}
-            onChange={onInputChange}
-          />
-          <input
-            type="text"
-            name="rubric"
-            placeholder="Rubric"
-            value={newRubric.rubric}
-            onChange={onInputChange}
-          />
-          <button onClick={onCreateRubric}>Create Rubric</button>
-          <button onClick={onUpdateRubric}>Update Rubric</button>
-          <button onClick={onDeleteRubric}>Delete Rubric</button>
-        </div>
       </div>
     </div>
   );

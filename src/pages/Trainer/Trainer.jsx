@@ -70,6 +70,7 @@ const Trainer = () => {
   };
 
   const handleUpdateRubric = () => {
+    newRubric.rubric_id = selectedRubric;
     fetch(`${API_BASE_URL}/rubrics/update_rubric/${selectedRubric}`, {
       method: "PUT",
       headers: {
