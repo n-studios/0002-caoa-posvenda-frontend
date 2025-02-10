@@ -14,7 +14,6 @@ const Trainer = () => {
   const [rubrics, setRubrics] = useState([]);
   const [selectedRubric, setSelectedRubric] = useState("");
   const [newRubric, setNewRubric] = useState({
-    rubric_id: "",
     rating_system: "",
     rubric: "",
   });
@@ -32,15 +31,30 @@ const Trainer = () => {
       })
       .catch((error) => console.error("Error fetching rubrics:", error));
   };
-  
 
   const handleRubricChange = (e) => {
-    setSelectedRubric(e.target.value);
+    const selectedId = e.target.value;
+    setSelectedRubric(selectedId);
+
+    const selectedRubricData = rubrics.find(
+      (rubric) => rubric._id === selectedId
+    );
+    if (selectedRubricData) {
+      setNewRubric({
+        rating_system: selectedRubricData.rating_system || "",
+        rubric: selectedRubricData.rubric || "",
+      });
+    } else {
+      setNewRubric({ rating_system: "", rubric: "" });
+    }
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewRubric({ ...newRubric, [name]: value });
+    setNewRubric((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleCreateRubric = () => {
@@ -64,36 +78,46 @@ const Trainer = () => {
       })
       .then(() => {
         fetchRubrics();
-        setNewRubric({ rating_system: "", rubric: "" });
+        setNewRubric({ rating_system: "", rubric: "" }); // Clear the newRubric state after creation
       })
       .catch((error) => console.error("Error creating rubric:", error));
   };
 
   const handleUpdateRubric = () => {
-    newRubric.rubric_id = selectedRubric;
-    fetch(`${API_BASE_URL}/rubrics/update_rubric/${selectedRubric}`, {
+    const updatedRubric = {
+      rubric_id: selectedRubric,
+      rating_system: newRubric.rating_system,
+      rubric: newRubric.rubric,
+    };
+
+    fetch(`${API_BASE_URL}/rubrics/update_rubric`, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newRubric),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedRubric),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to update rubric");
+        }
+        return response.json();
+      })
       .then(() => {
         fetchRubrics();
-        setNewRubric({ rubric_id: "", rating_system: "", rubric: "" });
+        setNewRubric({ rating_system: "", rubric: "" });
+        setSelectedRubric("");
       })
       .catch((error) => console.error("Error updating rubric:", error));
   };
 
-  const handleDeleteRubric = () => {
-    fetch(`${API_BASE_URL}/rubrics/delete_rubric/${selectedRubric}`, {
+  const handleDeleteRubric = (rubric_id) => {
+    fetch(`${API_BASE_URL}/rubrics/delete_rubric/${rubric_id}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
       .then(() => {
         fetchRubrics();
-        setSelectedRubric("");
+        setSelectedRubric(""); // Clear the selectedRubric state
+        setNewRubric({ rating_system: "", rubric: "" }); // Clear the newRubric state
       })
       .catch((error) => console.error("Error deleting rubric:", error));
   };
