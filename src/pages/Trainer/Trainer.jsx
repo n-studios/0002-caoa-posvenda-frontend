@@ -3,10 +3,17 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/shared-components/Button";
 import Config from "../../components/trainer-components/Config";
 import TrainerSection from "../../components/trainer-components/TrainerSection";
+import ChatDisplay from "../../components/chat-components/ChatDisplay";
+import TextArea from "../../components/chat-components/TextArea";
+import ErrorDisplay from "../../components/chat-components/ErrorDisplay";
+import Loader from "../../components/chat-components/Loader";
 import "./Trainer.css";
 
 const API_BASE_URL =
   "https://0002-caoa-posvenda-api-evaluation.azurewebsites.net/api/v1";
+
+const ANSWER_BASE_URL =
+  "https://0002-caoa-posvenda-api-evaluation.azurewebsites.net";
 
 const Trainer = () => {
   const navigate = useNavigate();
@@ -24,6 +31,10 @@ const Trainer = () => {
     ground_truth: "",
     category: "",
   });
+  const [messages, setMessages] = useState([]);
+  const [inputText, setInputText] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchRubrics();
@@ -34,7 +45,6 @@ const Trainer = () => {
     fetch(`${API_BASE_URL}/rubrics/get_rubrics`)
       .then((response) => response.json())
       .then((data) => {
-        console.log("Fetched rubrics:", data);
         setRubrics(data);
       })
       .catch((error) => console.error("Error fetching rubrics:", error));
@@ -195,6 +205,57 @@ const Trainer = () => {
       .catch((error) => console.error("Error deleting question:", error));
   };
 
+  const handleSendAnswer = async () => {
+    if (!inputText.trim() || !selectedQuestion) {
+      setError("Por favor selecione sua pergunta e escreva uma resposta");
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
+
+    const questionId =
+      questions.findIndex((q) => q._id === selectedQuestion._id) + 1;
+    const rubricId = rubrics.findIndex((r) => r._id === selectedRubric) + 1;
+
+    const answerData = {
+      id: questionId,
+      input: inputText,
+      experiment_id: rubricId,
+    };
+
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { sender: "user", text: inputText },
+    ]);
+
+    try {
+      const response = await fetch(`${ANSWER_BASE_URL}/answer/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(answerData),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText || "Failed to send message");
+      }
+
+      const responseData = await response.json();
+      const text = `Avaliação: ${responseData.evaluation}`;
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { sender: "bot", text: text },
+      ]);
+
+      setInputText("");
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="trainer-page">
       <div className="trainer-sidebar">
@@ -230,6 +291,15 @@ const Trainer = () => {
             <h4>Pergunta: {selectedQuestion.question}</h4>
           </div>
         )}
+        <ChatDisplay messages={messages} />
+        <TextArea
+          inputText={inputText}
+          setInputText={setInputText}
+          onSendMessage={handleSendAnswer}
+          isLoading={isLoading}
+        />
+        {error && <ErrorDisplay error={error} />}
+        {isLoading && <Loader />}
       </div>
       <div className="return-button">
         <Button onClick={() => navigate("/")} buttonText={"Página inicial"} />
