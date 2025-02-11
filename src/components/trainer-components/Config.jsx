@@ -69,6 +69,14 @@ const Config = ({
     setUpdate(false);
   };
 
+  const handleRubricChange = (event) => {
+    onRubricChange(event);
+    if (event.target.value === "") {
+      setUpdate(false);
+      setCreate(false);
+    }
+  };
+
   return (
     <div className="config">
       <div className="config-header" onClick={handleToggle}>
@@ -84,7 +92,7 @@ const Config = ({
           id="rubric-dropdown"
           className="dropdown-select"
           value={selectedRubric}
-          onChange={onRubricChange}
+          onChange={handleRubricChange}
         >
           <option value="">Selecione uma rubrica</option>
           {rubrics.map((rubric) => (
@@ -105,17 +113,17 @@ const Config = ({
             <h2>Nova Rúbrica</h2>
             <input
               type="text"
-              name="rating_system"
-              placeholder="Rating System"
-              value={newRubric.rating_system}
-              onChange={onInputChange}
-            />
-            <input
-              type="text"
               name="rubric"
-              placeholder="Rubric"
+              placeholder="Rúbrica"
               value={newRubric.rubric}
               onChange={onInputChange}
+            />
+            <textarea
+              name="rating_system"
+              placeholder="Sistema de avaliação"
+              value={newRubric.rating_system}
+              onChange={onInputChange}
+              rows={3}
             />
             <button className="generic-button" onClick={handleSendCreate}>
               Enviar
@@ -146,17 +154,17 @@ const Config = ({
                 <h2>Editar Rúbrica</h2>
                 <input
                   type="text"
-                  name="rating_system"
-                  placeholder="Rating System"
-                  value={newRubric.rating_system}
-                  onChange={onInputChange}
-                />
-                <input
-                  type="text"
                   name="rubric"
-                  placeholder="Rubric"
+                  placeholder="Rúbrica"
                   value={newRubric.rubric}
                   onChange={onInputChange}
+                />
+                <textarea
+                  name="rating_system"
+                  placeholder="Sistema de avaliação"
+                  value={newRubric.rating_system}
+                  onChange={onInputChange}
+                  rows={3}
                 />
                 <div className="controls">
                   <button className="generic-button" onClick={handleSendUpdate}>

@@ -67,7 +67,7 @@
   }
 
   input {
-    width: 97.5%;
+    width:auto;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;

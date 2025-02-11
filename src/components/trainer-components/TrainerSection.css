@@ -1,84 +1,125 @@
-.trainer-section label {
-    font-size: 18px;
-    margin-bottom: 10px;
-    color: #333;
-    display: block;
-  }
-  
-  .dropdown-select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
-    font-size: 16px;
-    color: #333;
-    cursor: pointer;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    margin-bottom: 20px;
-  }
-  
-  .dropdown-select:focus {
-    outline: none;
-    border-color: #000000;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  textarea {
-    width: 97.5%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-size: 15px;
-    color: #333;
-    resize: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    margin-bottom: 20px; /* Adds space below the textarea */
-  }
-  
-  textarea:focus {
-    outline: none;
-    border-color: #000000;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  }
+.trainer-section {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
 
+.trainer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.trainer-header:hover {
+  background-color: #f0f0f0;
+}
+
+.trainer-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-family: "Montserrat", sans-serif;
+  color: #333;
+}
+
+.toggle-icon {
+  font-size: 16px;
+  transition: transform 0.3s ease;
+}
+
+.toggle-icon.open {
+  transform: rotate(90deg);
+}
+
+.trainer-content {
+  max-height: 0;
+  padding: 0 10px;
+  background-color: #fff;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+.trainer-content.open {
+  max-height: 500px;
+  padding: 10px;
+  opacity: 1;
+}
+
+.trainer-content.closing {
+  max-height: 0;
+  padding: 0 10px;
+  opacity: 0;
+}
+
+.dropdown-select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 10px;
+}
+
+input, textarea {
+  width: 97.5%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 10px;
+  background-color: #fff;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+}
+
+.trainer-content h4 {
+  font-size: 16px;
+  font-family: "Montserrat", sans-serif;
+  color: #555;
+  margin-top: 10px;
+}
+
+.trainer-content p {
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  color: #777;
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .trainer-section label {
-      font-size: 16px;
-    }
-  
-    .dropdown-select,
-    textarea {
-      font-size: 14px;
-      padding: 8px;
-    }
-  
-    button,
-    .return-button {
-      font-size: 14px;
-      padding: 8px 16px;
-    }
+  .trainer-section h3 {
+    font-size: 16px;
   }
-  
-  @media (max-width: 480px) {
-    .trainer-section label {
-      font-size: 14px;
-    }
-  
-    .dropdown-select,
-    textarea {
-      font-size: 12px;
-      padding: 6px;
-    }
-  
-    .generic-button,
-    .return-button {
-      font-size: 12px;
-      padding: 6px 12px;
-    }
-  }  
+
+  .trainer-section h4 {
+    font-size: 14px;
+  }
+
+  .trainer-section p {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .trainer-section h3 {
+    font-size: 14px;
+  }
+
+  .trainer-section h4 {
+    font-size: 12px;
+  }
+
+  .trainer-section p {
+    font-size: 10px;
+  }
+}

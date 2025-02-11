@@ -17,9 +17,17 @@ const Trainer = () => {
     rating_system: "",
     rubric: "",
   });
+  const [questions, setQuestions] = useState([]);
+  const [selectedQuestion, setSelectedQuestion] = useState(null);
+  const [newQuestion, setNewQuestion] = useState({
+    question: "",
+    ground_truth: "",
+    category: "",
+  });
 
   useEffect(() => {
     fetchRubrics();
+    fetchQuestions();
   }, []);
 
   const fetchRubrics = () => {
@@ -78,7 +86,7 @@ const Trainer = () => {
       })
       .then(() => {
         fetchRubrics();
-        setNewRubric({ rating_system: "", rubric: "" }); // Clear the newRubric state after creation
+        setNewRubric({ rating_system: "", rubric: "" });
       })
       .catch((error) => console.error("Error creating rubric:", error));
   };
@@ -116,16 +124,80 @@ const Trainer = () => {
       .then((response) => response.json())
       .then(() => {
         fetchRubrics();
-        setSelectedRubric(""); // Clear the selectedRubric state
-        setNewRubric({ rating_system: "", rubric: "" }); // Clear the newRubric state
+        setSelectedRubric("");
+        setNewRubric({ rating_system: "", rubric: "" });
       })
       .catch((error) => console.error("Error deleting rubric:", error));
   };
 
+  const fetchQuestions = () => {
+    fetch(`${API_BASE_URL}/questions/get_questions`)
+      .then((response) => response.json())
+      .then((data) => {
+        setQuestions(data);
+      })
+      .catch((error) => console.error("Error fetching questions:", error));
+  };
+
+  const handleQuestionChange = (e) => {
+    const selectedId = e.target.value;
+    const selectedQuestion = questions.find((q) => q._id === selectedId);
+    setSelectedQuestion(selectedQuestion);
+  };
+
+  const handleCreateQuestion = (question) => {
+    fetch(`${API_BASE_URL}/questions/create_question`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(question),
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error("Failed to create question");
+        return response.json();
+      })
+      .then(() => {
+        fetchQuestions();
+        setNewQuestion({ question: "", ground_truth: "", category: "" });
+      })
+      .catch((error) => console.error("Error creating question:", error));
+  };
+
+  const handleUpdateQuestion = (question) => {
+    fetch(`${API_BASE_URL}/questions/update_question`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ...question,
+        question_id: selectedQuestion._id,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error("Failed to update question");
+        return response.json();
+      })
+      .then(() => {
+        fetchQuestions();
+        setSelectedQuestion(null);
+      })
+      .catch((error) => console.error("Error updating question:", error));
+  };
+
+  const handleDeleteQuestion = (questionId) => {
+    fetch(`${API_BASE_URL}/questions/delete_question/${questionId}`, {
+      method: "DELETE",
+    })
+      .then(() => {
+        fetchQuestions();
+        setSelectedQuestion(null);
+      })
+      .catch((error) => console.error("Error deleting question:", error));
+  };
+
   return (
     <div className="trainer-page">
-      <div className="trainer-container">
-        <h1>Trainer</h1>
+      <div className="trainer-sidebar">
         <Config
           rubrics={rubrics}
           selectedRubric={selectedRubric}
@@ -139,32 +211,29 @@ const Trainer = () => {
         <TrainerSection
           label="Qual assunto treinar:"
           dropdownId="question-dropdown"
-          options={[
-            { value: "option1", label: "Pergunta 1" },
-            { value: "option2", label: "Pergunta 2" },
-            { value: "option3", label: "Pergunta 3" },
-          ]}
+          options={questions.map((q) => ({
+            value: q._id,
+            label: q.question,
+          }))}
           textareaRows={3}
-          textareaContent="Lorem ipsum dolor sit amet, consectetur adipiscing elit?"
+          onQuestionChange={handleQuestionChange}
+          questionData={selectedQuestion}
+          onCreateQuestion={handleCreateQuestion}
+          onUpdateQuestion={handleUpdateQuestion}
+          onDeleteQuestion={handleDeleteQuestion}
         />
-        <TrainerSection
-          label="Selecione uma resposta ou crie sua própria:"
-          dropdownId="answer-dropdown"
-          options={[
-            { value: "option1", label: "Resposta 1" },
-            { value: "option2", label: "Resposta 2" },
-            { value: "option3", label: "Resposta 3" },
-          ]}
-          textareaRows={6}
-          textareaContent="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        />
-        <button className="generic-button">Sample Text</button>
       </div>
-      <Button
-        onClick={() => navigate("/")}
-        buttonText={"Página inicial"}
-        className="return-button"
-      />
+      <div className="trainer-container">
+        <h1>Trainer</h1>
+        {selectedQuestion && (
+          <div className="question-display">
+            <h4>Pergunta: {selectedQuestion.question}</h4>
+          </div>
+        )}
+      </div>
+      <div className="return-button">
+        <Button onClick={() => navigate("/")} buttonText={"Página inicial"} />
+      </div>
     </div>
   );
 };

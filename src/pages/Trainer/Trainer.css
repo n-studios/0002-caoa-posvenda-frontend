@@ -1,8 +1,18 @@
 .trainer-page {
-    height: 80vh;
-    width: 75vw;
-    margin-left: auto;
-    margin-right: auto;
+  display: flex;
+  height: 80vh;
+
+}
+
+.trainer-sidebar{
+  width:30vw;
+  overflow-y: auto;
+  margin-top: 10px;
+  margin-left: 10px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
 }
 
 .trainer-container {
@@ -10,11 +20,11 @@
     display: flex;
     flex-direction: column;
     background-color: #fff;
-    margin: 20px;
+    margin: 10px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    padding: 20px;
+    padding: 15px;
   }
   
   .trainer-container h1 {
@@ -24,7 +34,6 @@
   }
   
   .generic-button {
-    width: 20% ;
     padding: 10px 20px;
     background-color: #000000;
     color: white;
