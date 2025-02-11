@@ -1,15 +1,17 @@
 import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "../components/Button";
-import Sidebar from "../components/Sidebar";
-import ChatDisplay from "../components/ChatDisplay";
-import TextArea from "../components/TextArea";
-import Loader from "../components/Loader";
-import ErrorDisplay from "../components/ErrorDisplay";
+import Button from "../../components/shared-components/Button";
+import Sidebar from "../../components/chat-components/Sidebar";
+import ChatDisplay from "../../components/chat-components/ChatDisplay";
+import TextArea from "../../components/chat-components/TextArea";
+import Loader from "../../components/chat-components/Loader";
+import ErrorDisplay from "../../components/chat-components/ErrorDisplay";
 import "./Chat.css";
 
 const API_BASE_URL =
   "https://0002-caoa-posvenda-api-agents.azurewebsites.net/api/v1";
+
+const mockUserIdBasedOnPhone = "11999999999";
 
 const Chat = () => {
   const navigate = useNavigate();
@@ -64,7 +66,7 @@ const Chat = () => {
 
     const messageData = {
       message: inputText,
-      user_id: "11999999999",
+      user_id: mockUserIdBasedOnPhone,
       namespace: selectedNamespace,
     };
 

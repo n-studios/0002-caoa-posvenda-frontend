@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import Button from "../components/Button";
+import Button from "../../components/shared-components/Button";
 import "./Home.css";
 
 const Home = () => {
@@ -13,7 +13,7 @@ const Home = () => {
     <div className="home-container">
       <Button onClick={() => handleButtonClick("/chat")} buttonText={"CHAT"} />
       <Button
-        onClick={() => handleButtonClick("/training")}
+        onClick={() => handleButtonClick("/trainer")}
         buttonText={"TRAINER"}
       />
       <Button
