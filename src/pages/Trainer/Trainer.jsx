@@ -27,11 +27,6 @@ const Trainer = () => {
   });
   const [questions, setQuestions] = useState([]);
   const [selectedQuestion, setSelectedQuestion] = useState(null);
-  const [newQuestion, setNewQuestion] = useState({
-    question: "",
-    ground_truth: "",
-    category: "",
-  });
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -170,7 +165,6 @@ const Trainer = () => {
       })
       .then(() => {
         fetchQuestions();
-        setNewQuestion({ question: "", ground_truth: "", category: "" });
       })
       .catch((error) => console.error("Error creating question:", error));
   };
