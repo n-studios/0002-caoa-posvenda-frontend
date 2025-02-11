@@ -61,6 +61,7 @@
     .trainer-page {
       flex-direction: column;
       width: 96vw;
+      height: auto;
     }
 
     .trainer-sidebar {
