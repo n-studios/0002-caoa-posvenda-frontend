@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const EvaluationButton = ({ buttonText, className, onClick }) => {
   return (
@@ -15,4 +15,3 @@ EvaluationButton.propTypes = {
 };
 
 export default EvaluationButton;
-
