@@ -1,0 +1,114 @@
+.config {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  
+  .config-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .config-header:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .config-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-family: "Montserrat", sans-serif;
+    color: #333;
+  }
+  
+  .toggle-icon {
+    font-size: 16px;
+    transition: transform 0.3s ease;
+  }
+  
+  .toggle-icon.open {
+    transform: rotate(90deg);
+  }
+  
+  .config-content {
+    max-height: 0;
+    padding: 0 10px;
+    background-color: #fff;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+  }
+  
+  .config-content.open {
+    max-height: 500px;
+    padding: 10px;
+    opacity: 1;
+  }
+  
+  .config-content.closing {
+    max-height: 0;
+    padding: 0 10px;
+    opacity: 0;
+  }
+  
+  .dropdown-select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: "Montserrat", sans-serif;
+    margin-bottom: 10px;
+  }
+
+  .controls{
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .config-content h4 {
+    font-size: 16px;
+    font-family: "Montserrat", sans-serif;
+    color: #555;
+    margin-top: 10px;
+  }
+  
+  .config-content p {
+    font-size: 14px;
+    font-family: "Montserrat", sans-serif;
+    color: #777;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .config h3 {
+      font-size: 16px;
+    }
+  
+    .config h4 {
+      font-size: 14px;
+    }
+  
+    .config p {
+      font-size: 12px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .config h3 {
+      font-size: 14px;
+    }
+  
+    .config h4 {
+      font-size: 12px;
+    }
+  
+    .config p {
+      font-size: 10px;
+    }
+  }

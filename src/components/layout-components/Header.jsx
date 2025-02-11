@@ -1,4 +1,4 @@
-import logo from "../assets/caoa.png";
+import logo from "../../assets/caoa.png";
 import "./Header.css";
 
 const Header = () => {
