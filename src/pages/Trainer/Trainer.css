@@ -1,6 +1,6 @@
 .trainer-page {
   display: flex;
-  height: 80vh;
+  height: 85vh;
 
 }
 
@@ -29,10 +29,14 @@
   
   .trainer-container h1 {
     font-size: 24px;
-    margin-bottom: 20px;
     color: #333;
   }
   
+  .trainer-container h4 {
+    margin: 2px;
+    color: #333;
+  }
+
   .generic-button {
     padding: 10px 20px;
     background-color: #000000;
@@ -46,6 +50,10 @@
   
   .generic-button:hover {
     background-color: #333;
+  }
+
+  .load{
+    display: none;
   }
   
 /* Responsive Design */

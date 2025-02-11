@@ -7,6 +7,7 @@ import ChatDisplay from "../../components/chat-components/ChatDisplay";
 import TextArea from "../../components/chat-components/TextArea";
 import ErrorDisplay from "../../components/chat-components/ErrorDisplay";
 import Loader from "../../components/chat-components/Loader";
+import EvaluationButton from "../../components/trainer-components/EvaluationButton";
 import "./Trainer.css";
 
 const API_BASE_URL =
@@ -206,8 +207,10 @@ const Trainer = () => {
   };
 
   const handleSendAnswer = async () => {
-    if (!inputText.trim() || !selectedQuestion) {
-      setError("Por favor selecione sua pergunta e escreva uma resposta");
+    if (!inputText.trim() || !selectedQuestion || !selectedRubric) {
+      setError(
+        "Por favor selecione uma rúbrica, uma pergunta e escreva uma resposta"
+      );
       return;
     }
 
@@ -242,10 +245,87 @@ const Trainer = () => {
       }
 
       const responseData = await response.json();
-      const text = `Avaliação: ${responseData.evaluation}`;
+      let formattedText = `Avaliação: ${responseData.evaluation}
+      `;
+
+      if (responseData.score) {
+        formattedText += `Nota: ${responseData.score}\n`;
+      }
+
+      if (responseData.rating) {
+        formattedText += `Rating: ${responseData.rating}\n`;
+      }
+
       setMessages((prevMessages) => [
         ...prevMessages,
-        { sender: "bot", text: text },
+        { sender: "bot", text: formattedText },
+      ]);
+
+      setInputText("");
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSendEvaluation = async () => {
+    if (!inputText.trim() || !selectedQuestion || !selectedRubric) {
+      setError(
+        "Por favor selecione uma rúbrica, uma pergunta e escreva uma resposta"
+      );
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
+
+    const getRubric = rubrics.find((r) => r._id === selectedRubric);
+
+    const evaluationData = {
+      question: selectedQuestion.question,
+      ground_truth: selectedQuestion.ground_truth,
+      rubric: getRubric.rubric,
+      rating_system: getRubric.rating_system,
+      user_input: inputText,
+    };
+
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { sender: "user", text: inputText },
+    ]);
+
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/evaluation/evaluate_response`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(evaluationData),
+        }
+      );
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText || "Failed to send message");
+      }
+
+      const responseData = await response.json();
+      console.log(responseData);
+      let formattedText = `Avaliação: ${responseData.evaluation}
+      `;
+
+      if (responseData.rubric_score) {
+        formattedText += `Nota da Rúbrica: ${responseData.rubric_score}\n`;
+      }
+
+      if (responseData.rating) {
+        formattedText += `Rating: ${responseData.rating}\n`;
+      }
+
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { sender: "bot", text: formattedText },
       ]);
 
       setInputText("");
@@ -300,6 +380,11 @@ const Trainer = () => {
         />
         {error && <ErrorDisplay error={error} />}
         {isLoading && <Loader />}
+        <EvaluationButton
+          buttonText="Avaliar"
+          className={`generic-button ${isLoading ? "load" : ""}`}
+          onClick={handleSendEvaluation}
+        />
       </div>
       <div className="return-button">
         <Button onClick={() => navigate("/")} buttonText={"Página inicial"} />

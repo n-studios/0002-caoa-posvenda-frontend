@@ -66,16 +66,6 @@
     margin-bottom: 10px;
   }
 
-  input {
-    width:auto;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    font-family: "Montserrat", sans-serif;
-    margin-bottom: 10px;
-  }
-
   .controls{
     display: flex;
     justify-content: space-between;
