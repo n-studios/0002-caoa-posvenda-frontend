@@ -60,12 +60,19 @@
 @media (max-width: 768px) {
     .trainer-page {
       flex-direction: column;
-      width: 95vw;
+      width: 96vw;
+    }
+
+    .trainer-sidebar {
+      width: auto;
+      margin: 0; 
+      padding: 3px;
     }
   
     .trainer-container {
-      margin: 10px;
-      padding: 15px;
+      margin-top: 5px;
+      margin-right: 0;
+      margin-left: 0;
     }
   
     .trainer-container h1 {
@@ -75,7 +82,7 @@
     .generic-button,
     .return-button {
       font-size: 14px;
-      padding: 8px 16px;
+      padding: 3px 5px;
     }
   }
   
@@ -84,11 +91,7 @@
       flex-direction: column;
       width: 95vw;
     }
-    .trainer-container {
-      margin: 5px;
-      padding: 10px;
-    }
-  
+
     .trainer-container h1 {
       font-size: 18px;
     }
@@ -96,6 +99,5 @@
     .generic-button,
     .return-button {
       font-size: 12px;
-      padding: 6px 12px;
     }
   }
