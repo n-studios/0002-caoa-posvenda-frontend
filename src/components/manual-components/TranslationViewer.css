@@ -1,0 +1,110 @@
+.translation-viewer-container {
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  width: 52vw;
+  height: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.viewer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.viewer-header:hover {
+  background-color: #f0f0f0;
+}
+
+.viewer-header h3 {
+  margin: 0;
+  font-size: 16px; 
+  font-family: "Montserrat", sans-serif;
+  color: #333;
+}
+
+.toggle-icon {
+  font-size: 16px; 
+  transition: transform 0.3s ease;
+}
+
+.toggle-icon.open {
+  transform: rotate(90deg);
+}
+
+.viewer-content {
+  max-height: 0;
+  padding: 0 10px;
+  background-color: #fff;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+  font-size: 14px;
+}
+
+.viewer-content.open {
+  max-height: 100%;
+  padding: 10px;
+  opacity: 1;
+}
+
+.viewer-content.closing {
+  max-height: 0;
+  padding: 0 10px;
+  opacity: 0;
+}
+
+/* Add styles for tables */
+.viewer-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0;
+}
+
+.viewer-content th,
+.viewer-content td {
+  padding: 8px; 
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.viewer-content th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.viewer-content tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.viewer-content tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .viewer-header h3 {
+    font-size: 14px; 
+  }
+
+  .viewer-content {
+    font-size: 11px; 
+  }
+}
+
+@media (max-width: 480px) {
+  .viewer-header h3 {
+    font-size: 12px; 
+  }
+
+  .viewer-content {
+    font-size: 9px; 
+  }
+}

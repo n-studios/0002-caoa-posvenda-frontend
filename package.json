@@ -10,9 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "dompurify": "^3.2.4",
+    "marked": "^15.0.7",
     "prettier": "^3.4.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-pdf": "^9.2.1",
     "react-router-dom": "^7.1.5"
   },
   "devDependencies": {
