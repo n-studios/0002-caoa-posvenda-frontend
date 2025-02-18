@@ -4,17 +4,13 @@ import Button from "../../components/shared-components/Button";
 import Config from "../../components/trainer-components/Config";
 import TrainerSection from "../../components/trainer-components/TrainerSection";
 import ChatDisplay from "../../components/chat-components/ChatDisplay";
-import TextArea from "../../components/chat-components/TextArea";
+import TrainerTextArea from "../../components/trainer-components/TrainerTextArea";
 import ErrorDisplay from "../../components/chat-components/ErrorDisplay";
 import Loader from "../../components/chat-components/Loader";
-import EvaluationButton from "../../components/trainer-components/EvaluationButton";
 import "./Trainer.css";
 
 const API_BASE_URL =
   "https://0002-caoa-posvenda-api-evaluation.azurewebsites.net/api/v1";
-
-const ANSWER_BASE_URL =
-  "https://0002-caoa-posvenda-api-evaluation.azurewebsites.net";
 
 const Trainer = () => {
   const navigate = useNavigate();
@@ -200,69 +196,6 @@ const Trainer = () => {
       .catch((error) => console.error("Error deleting question:", error));
   };
 
-  const handleSendAnswer = async () => {
-    if (!inputText.trim() || !selectedQuestion || !selectedRubric) {
-      setError(
-        "Por favor selecione uma rúbrica, uma pergunta e escreva uma resposta"
-      );
-      return;
-    }
-
-    setIsLoading(true);
-    setError(null);
-
-    const questionId =
-      questions.findIndex((q) => q._id === selectedQuestion._id) + 1;
-    const rubricId = rubrics.findIndex((r) => r._id === selectedRubric) + 1;
-
-    const answerData = {
-      id: questionId,
-      input: inputText,
-      experiment_id: rubricId,
-    };
-
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { sender: "user", text: inputText },
-    ]);
-
-    try {
-      const response = await fetch(`${ANSWER_BASE_URL}/answer/`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(answerData),
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(errorText || "Failed to send message");
-      }
-
-      const responseData = await response.json();
-      let formattedText = `Avaliação: ${responseData.evaluation}
-      `;
-
-      if (responseData.score) {
-        formattedText += `Nota: ${responseData.score}\n`;
-      }
-
-      if (responseData.rating) {
-        formattedText += `Rating: ${responseData.rating}\n`;
-      }
-
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { sender: "bot", text: formattedText },
-      ]);
-
-      setInputText("");
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const handleSendEvaluation = async () => {
     if (!inputText.trim() || !selectedQuestion || !selectedRubric) {
       setError(
@@ -366,19 +299,14 @@ const Trainer = () => {
           </div>
         )}
         <ChatDisplay messages={messages} />
-        <TextArea
-          inputText={inputText}
-          setInputText={setInputText}
-          onSendMessage={handleSendAnswer}
-          isLoading={isLoading}
+        <TrainerTextArea 
+        inputText={inputText}
+        setInputText={setInputText}
+        onSendMessage={handleSendEvaluation}
+        isLoading={isLoading}
         />
         {error && <ErrorDisplay error={error} />}
         {isLoading && <Loader />}
-        <EvaluationButton
-          buttonText="Avaliar"
-          className={`generic-button ${isLoading ? "load" : ""}`}
-          onClick={handleSendEvaluation}
-        />
       </div>
       <div className="return-button">
         <Button onClick={() => navigate("/")} buttonText={"Página inicial"} />
