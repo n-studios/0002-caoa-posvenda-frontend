@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/shared-components/Button";
-import Config from "../../components/trainer-components/Config";
+import RubricManager from "../../components/trainer-components/RubricManager";
 import QuestionManager from "../../components/trainer-components/QuestionManager";
 import ChatDisplay from "../../components/chat-components/ChatDisplay";
 import TrainerTextArea from "../../components/trainer-components/TrainerTextArea";
@@ -266,7 +266,7 @@ const Trainer = () => {
   return (
     <div className="trainer-page">
       <div className="trainer-sidebar">
-        <Config
+        <RubricManager
           rubrics={rubrics}
           selectedRubric={selectedRubric}
           onRubricChange={handleRubricChange}
