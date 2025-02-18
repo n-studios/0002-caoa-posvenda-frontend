@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/shared-components/Button";
 import Config from "../../components/trainer-components/Config";
-import TrainerSection from "../../components/trainer-components/TrainerSection";
+import QuestionManager from "../../components/trainer-components/QuestionManager";
 import ChatDisplay from "../../components/chat-components/ChatDisplay";
 import TrainerTextArea from "../../components/trainer-components/TrainerTextArea";
 import ErrorDisplay from "../../components/chat-components/ErrorDisplay";
@@ -276,7 +276,7 @@ const Trainer = () => {
           onUpdateRubric={handleUpdateRubric}
           onDeleteRubric={handleDeleteRubric}
         />
-        <TrainerSection
+        <QuestionManager
           label="Qual assunto treinar:"
           dropdownId="question-dropdown"
           options={questions.map((q) => ({

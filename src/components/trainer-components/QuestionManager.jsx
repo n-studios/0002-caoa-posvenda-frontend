@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
-import "./TrainerSection.css";
+import "./QuestionManager.css";
 
-const TrainerSection = ({
+const QuestionManager = ({
   label,
   dropdownId,
   options,
@@ -189,7 +189,7 @@ const TrainerSection = ({
   );
 };
 
-TrainerSection.propTypes = {
+QuestionManager.propTypes = {
   label: PropTypes.string.isRequired,
   dropdownId: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(
@@ -210,8 +210,8 @@ TrainerSection.propTypes = {
   onDeleteQuestion: PropTypes.func.isRequired,
 };
 
-TrainerSection.defaultProps = {
+QuestionManager.defaultProps = {
   questionData: {},
 };
 
-export default TrainerSection;
+export default QuestionManager;
