@@ -9,7 +9,7 @@ const ManualViewer = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [manual, setManual] = useState(null);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState("1");
 
   const totalPageCounts = {
     Tiggo7ProHybrid: 2071,
@@ -17,54 +17,56 @@ const ManualViewer = () => {
   };
 
   useEffect(() => {
+    const initialManual = searchParams.get("manual");
     const initialPage = parseInt(searchParams.get("page"), 10) || 1;
-    const initialManual = searchParams.get("manual") || null;
 
-    setPage(initialPage);
-    setManual(initialManual);
-    setInputValue(initialPage.toString());
+    if (initialManual) {
+      setManual(initialManual);
+      setTotalPages(totalPageCounts[initialManual] || 0);
+      setPage(initialPage);
+      setInputValue(initialPage.toString());
+    }
   }, [searchParams]);
 
-  // Update total pages when manual changes
   useEffect(() => {
     if (manual) {
       setTotalPages(totalPageCounts[manual]);
-
-      if (!searchParams.get("page")) {
-        setSearchParams({ manual, page: 1 });
-      }
     }
-  }, [manual, setSearchParams, searchParams]);
+  }, [manual]);
 
   const handleInputChange = (e) => {
     const value = e.target.value;
 
-    // Allow the input to be fully cleared
     if (value === "") {
       setInputValue("");
       return;
     }
 
     const parsedValue = parseInt(value, 10);
+    setInputValue(value);
 
     if (!isNaN(parsedValue) && parsedValue >= 1 && parsedValue <= totalPages) {
       setPage(parsedValue);
-      setSearchParams({ manual, page: parsedValue });
+      setSearchParams({ manual, page: parsedValue }, { replace: true });
     }
-
-    setInputValue(value);
   };
 
   const handleManualChange = (e) => {
     const selectedManual = e.target.value;
     if (selectedManual !== "") {
       setManual(selectedManual);
-      setSearchParams({ manual: selectedManual, page: 1 });
+      setTotalPages(totalPageCounts[selectedManual]);
+      setPage(1);
+      setInputValue("1");
+      setSearchParams({ manual: selectedManual, page: 1 }, { replace: true });
     }
   };
 
   const resetManual = () => {
     setManual(null);
+    setTotalPages(0);
+    setPage(1);
+    setInputValue("1");
     setSearchParams({});
   };
 
@@ -74,17 +76,15 @@ const ManualViewer = () => {
         <h1>Visualizador de Manual</h1>
 
         {!manual && (
-          <>
-            <select
-              className="dropdown-select"
-              value={manual}
-              onChange={handleManualChange}
-            >
-              <option value="">Selecione um manual</option>
-              <option value="Tiggo7ProHybrid">Tiggo 7 Pro Hybrid</option>
-              <option value="Tiggo8ProPHEV">Tiggo 8 Pro PHEV</option>
-            </select>
-          </>
+          <select
+            className="dropdown-select"
+            value={manual || ""}
+            onChange={handleManualChange}
+          >
+            <option value="">Selecione um manual</option>
+            <option value="Tiggo7ProHybrid">Tiggo 7 Pro Hybrid</option>
+            <option value="Tiggo8ProPHEV">Tiggo 8 Pro PHEV</option>
+          </select>
         )}
         {manual && (
           <>
