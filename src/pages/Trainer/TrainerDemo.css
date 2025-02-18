@@ -1,0 +1,101 @@
+.trainer-demo-page {
+    display: flex;
+    height: 85vh;
+  
+  }
+  
+  .trainer-demo-sidebar{
+    width:30vw;
+    overflow-y: auto;
+    margin-top: 10px;
+    margin-left: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+  }
+  
+  .trainer-demo-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background-color: #fff;
+      margin: 10px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      padding: 15px;
+    }
+    
+    .trainer-demo-container h1 {
+      font-size: 24px;
+      color: #333;
+    }
+    
+    .trainer-demo-container h4 {
+      margin: 2px;
+      color: #333;
+    }
+  
+    .generic-button {
+      padding: 10px 20px;
+      background-color: #000000;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+    
+    .generic-button:hover {
+      background-color: #333;
+    }
+  
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+      .trainer-demo-page {
+        flex-direction: column;
+        width: 96vw;
+        height: 130vh;
+      }
+  
+      .trainer-demo-sidebar {
+        width: auto;
+        margin: 0; 
+        padding: 3px;
+      }
+    
+      .trainer-demo-container {
+        margin-top: 5px;
+        margin-right: 0;
+        margin-left: 0;
+      }
+    
+      .trainer-demo-container h1 {
+        font-size: 20px;
+      }
+    
+      .generic-button,
+      .return-button {
+        font-size: 14px;
+        padding: 3px 5px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .trainer-demo-page {
+        flex-direction: column;
+        width: 95vw;
+      }
+  
+      .trainer-demo-container h1 {
+        font-size: 18px;
+      }
+  
+      .generic-button,
+      .return-button {
+        font-size: 12px;
+      }
+    }

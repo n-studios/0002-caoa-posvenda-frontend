@@ -1,8 +1,8 @@
 import { useState } from "react";
-import "./Config.css";
+import "./RubricManager.css";
 import PropTypes from "prop-types";
 
-const Config = ({
+const RubricManager = ({
   rubrics,
   selectedRubric,
   onRubricChange,
@@ -183,7 +183,7 @@ const Config = ({
   );
 };
 
-Config.propTypes = {
+RubricManager.propTypes = {
   rubrics: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
@@ -203,4 +203,4 @@ Config.propTypes = {
   onDeleteRubric: PropTypes.func.isRequired,
 };
 
-export default Config;
+export default RubricManager;

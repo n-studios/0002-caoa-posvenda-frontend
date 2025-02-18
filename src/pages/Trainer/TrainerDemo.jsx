@@ -3,12 +3,16 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/shared-components/Button";
 import RubricManager from "../../components/trainer-components/RubricManager";
 import QuestionManager from "../../components/trainer-components/QuestionManager";
-import "./Trainer.css";
+import ChatDisplay from "../../components/chat-components/ChatDisplay";
+import TrainerTextArea from "../../components/trainer-components/TrainerTextArea";
+import ErrorDisplay from "../../components/chat-components/ErrorDisplay";
+import Loader from "../../components/chat-components/Loader";
+import "./TrainerDemo.css";
 
 const API_BASE_URL =
   "https://0002-caoa-posvenda-api-evaluation.azurewebsites.net/api/v1";
 
-const Trainer = () => {
+const TrainerDemo = () => {
   const navigate = useNavigate();
 
   const [rubrics, setRubrics] = useState([]);
@@ -19,6 +23,10 @@ const Trainer = () => {
   });
   const [questions, setQuestions] = useState([]);
   const [selectedQuestion, setSelectedQuestion] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [inputText, setInputText] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchRubrics();
@@ -188,10 +196,76 @@ const Trainer = () => {
       .catch((error) => console.error("Error deleting question:", error));
   };
 
+  const handleSendEvaluation = async () => {
+    if (!inputText.trim() || !selectedQuestion || !selectedRubric) {
+      setError(
+        "Por favor selecione uma rúbrica, uma pergunta e escreva uma resposta"
+      );
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
+
+    const getRubric = rubrics.find((r) => r._id === selectedRubric);
+
+    const evaluationData = {
+      question: selectedQuestion.question,
+      ground_truth: selectedQuestion.ground_truth,
+      rubric: getRubric.rubric,
+      rating_system: getRubric.rating_system,
+      user_input: inputText,
+    };
+
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { sender: "user", text: inputText },
+    ]);
+
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/evaluation/evaluate_response`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(evaluationData),
+        }
+      );
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText || "Failed to send message");
+      }
+
+      const responseData = await response.json();
+      console.log(responseData);
+      let formattedText = `Avaliação: ${responseData.evaluation}
+      `;
+
+      if (responseData.rubric_score) {
+        formattedText += `Nota da Rúbrica: ${responseData.rubric_score}\n`;
+      }
+
+      if (responseData.rating) {
+        formattedText += `Rating: ${responseData.rating}\n`;
+      }
+
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { sender: "bot", text: formattedText },
+      ]);
+
+      setInputText("");
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <div className="trainer-page">
-      <div className="trainer-container">
-        <h1>Trainer</h1>
+    <div className="trainer-demo-page">
+      <div className="trainer-demo-sidebar">
         <RubricManager
           rubrics={rubrics}
           selectedRubric={selectedRubric}
@@ -216,22 +290,29 @@ const Trainer = () => {
           onUpdateQuestion={handleUpdateQuestion}
           onDeleteQuestion={handleDeleteQuestion}
         />
+      </div>
+      <div className="trainer-demo-container">
+        <h1>Trainer</h1>
         {selectedQuestion && (
           <div className="question-display">
             <h4>Pergunta: {selectedQuestion.question}</h4>
           </div>
         )}
+        <ChatDisplay messages={messages} />
+        <TrainerTextArea 
+        inputText={inputText}
+        setInputText={setInputText}
+        onSendMessage={handleSendEvaluation}
+        isLoading={isLoading}
+        />
+        {error && <ErrorDisplay error={error} />}
+        {isLoading && <Loader />}
       </div>
       <div className="return-button">
-        <Button
-          id="demo"
-          onClick={() => navigate("/trainer/demo")}
-          buttonText={"Demonstração"}
-        />
         <Button onClick={() => navigate("/")} buttonText={"Página inicial"} />
       </div>
     </div>
   );
 };
 
-export default Trainer;
+export default TrainerDemo;
