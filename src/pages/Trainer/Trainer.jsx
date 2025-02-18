@@ -224,6 +224,7 @@ const Trainer = () => {
       </div>
       <div className="return-button">
         <Button
+          id="demo"
           onClick={() => navigate("/trainer/demo")}
           buttonText={"Demonstração"}
         />

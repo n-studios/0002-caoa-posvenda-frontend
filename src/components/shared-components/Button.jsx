@@ -1,15 +1,16 @@
 import "./Button.css";
 import PropTypes from "prop-types";
 
-const Button = ({ buttonText, onClick }) => {
+const Button = ({id, buttonText, onClick }) => {
   return (
-    <button className="neumorphism-button" onClick={onClick}>
+    <button id={id} className="neumorphism-button" onClick={onClick}>
       {buttonText}
     </button>
   );
 };
 
 Button.propTypes = {
+  id: PropTypes.string,
   buttonText: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
 };

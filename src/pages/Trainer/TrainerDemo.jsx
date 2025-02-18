@@ -7,7 +7,7 @@ import ChatDisplay from "../../components/chat-components/ChatDisplay";
 import TrainerTextArea from "../../components/trainer-components/TrainerTextArea";
 import ErrorDisplay from "../../components/chat-components/ErrorDisplay";
 import Loader from "../../components/chat-components/Loader";
-import "./Trainer.css";
+import "./TrainerDemo.css";
 
 const API_BASE_URL =
   "https://0002-caoa-posvenda-api-evaluation.azurewebsites.net/api/v1";
@@ -264,8 +264,8 @@ const TrainerDemo = () => {
   };
 
   return (
-    <div className="trainer-page">
-      <div className="trainer-sidebar">
+    <div className="trainer-demo-page">
+      <div className="trainer-demo-sidebar">
         <RubricManager
           rubrics={rubrics}
           selectedRubric={selectedRubric}
@@ -291,7 +291,7 @@ const TrainerDemo = () => {
           onDeleteQuestion={handleDeleteQuestion}
         />
       </div>
-      <div className="trainer-container">
+      <div className="trainer-demo-container">
         <h1>Trainer</h1>
         {selectedQuestion && (
           <div className="question-display">

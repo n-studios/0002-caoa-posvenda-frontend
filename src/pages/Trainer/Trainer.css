@@ -1,18 +1,10 @@
 .trainer-page {
-  display: flex;
-  height: 85vh;
+  display: block;
+  width: 95vw;
+  margin-left: auto;
+  margin-right: auto;
 
-}
 
-.trainer-sidebar{
-  width:30vw;
-  overflow-y: auto;
-  margin-top: 10px;
-  margin-left: 10px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  padding: 10px;
 }
 
 .trainer-container {
@@ -52,8 +44,8 @@
     background-color: #333;
   }
 
-  .load{
-    display: none;
+  #demo {
+    margin-right: 20px;
   }
   
 /* Responsive Design */
