@@ -94,7 +94,7 @@ const RubricManager = ({
           value={selectedRubric}
           onChange={handleRubricChange}
         >
-          <option value="">Selecione uma rubrica</option>
+          <option value="">Selecione uma rúbrica</option>
           {rubrics.map((rubric) => (
             <option key={rubric._id} value={rubric._id}>
               {rubric.rubric}
