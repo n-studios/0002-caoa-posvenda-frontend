@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
+import PropTypes from "prop-types";
+import TranslationViewer from "./TranslationViewer";
 import "./PdfViewer.css";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
@@ -7,66 +9,86 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   import.meta.url
 ).toString();
 
+const manualPaths = {
+  Tiggo7ProHybrid: "/manuals/Tiggo7ProHybrid_Pages/Tiggo7ProHybrid_page_",
+  Tiggo8ProPHEV: "/manuals/Tiggo_8_PRO_PHEV_Pages/Tiggo_8_Pro_PHEV_page_",
+};
+
 const PdfViewer = ({ manual, page }) => {
   const [pdfData, setPdfData] = useState(null);
   const [error, setError] = useState(false);
-
-  // Define correct base paths for each manual
-  const manualPaths = {
-    Tiggo7ProHybrid: "/manuals/Tiggo7ProHybrid_Pages/Tiggo7ProHybrid_page_",
-    Tiggo8ProPHEV: "/manuals/Tiggo_8_PRO_PHEV_Pages/Tiggo_8_Pro_PHEV_page_",
-  };
-
-  const getManualPath = () => {
-    return manualPaths[manual] ? `${manualPaths[manual]}${page}.pdf` : null;
-  };
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setError(false);
-    const manualPath = getManualPath();
-    if (manualPath) {
-      fetch(manualPath)
-        .then((response) => {
-          if (!response.ok) throw new Error("PDF not found");
-          return response.blob();
-        })
-        .then((blob) => {
-          setPdfData(URL.createObjectURL(blob));
-        })
-        .catch((error) => {
-          console.error("Error loading PDF:", error);
-          setError(true);
-          setPdfData(null);
-        });
+    if (!manualPaths[manual]) {
+      setError(true);
+      setPdfData(null);
+      setLoading(false);
+      return;
     }
+
+    const manualPath = `${manualPaths[manual]}${page}.pdf`;
+
+    setError(false);
+    setLoading(true);
+
+    fetch(manualPath)
+      .then((response) => {
+        if (!response.ok) throw new Error("PDF not found");
+        return response.blob();
+      })
+      .then((blob) => {
+        setPdfData(URL.createObjectURL(blob));
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error loading PDF:", error);
+        setError(true);
+        setPdfData(null);
+        setLoading(false);
+      });
   }, [manual, page]);
 
   return (
     <div className="pdf-viewer-container">
-      {error ? (
-        <p>Esta página do manual não foi encontrada.</p>
-      ) : pdfData ? (
-        <Document file={pdfData}>
+      {loading && <p>Carregando página...</p>}
+      {error && !loading && <p>Esta página do manual não foi encontrada.</p>}
+      {!loading && pdfData !== null && (
+        <>
+          <TranslationViewer page={page} />
           <div
             style={{
-              border: "1px solid black",
-              padding: "5px",
-              display: "inline-block",
+              display: "flex",
+              justifyContent: "center",
+              padding: "10px",
             }}
           >
-            <Page
-              pageNumber={1}
-              renderTextLayer={false}
-              renderAnnotationLayer={false}
-              width={600}
-            />
+            <Document file={pdfData}>
+              <div
+                style={{
+                  border: "1px solid black",
+                  padding: "5px",
+                  display: "inline-block",
+                }}
+              >
+                <Page
+                  pageNumber={1}
+                  renderTextLayer={false}
+                  renderAnnotationLayer={false}
+                  width={600}
+                />
+              </div>
+            </Document>
           </div>
-        </Document>
-      ) : (
-        <p>Carregando página...</p>
+        </>
       )}
     </div>
   );
+};
+
+PdfViewer.propTypes = {
+  manual: PropTypes.string.isRequired,
+  page: PropTypes.number.isRequired,
 };
 
 export default PdfViewer;

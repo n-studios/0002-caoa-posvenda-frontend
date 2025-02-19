@@ -1,6 +1,7 @@
 import { useState } from "react";
-import "./RubricManager.css";
 import PropTypes from "prop-types";
+import "./RubricManager.css";
+
 
 const RubricManager = ({
   rubrics,

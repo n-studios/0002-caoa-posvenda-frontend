@@ -1,8 +1,9 @@
 import { useState } from "react";
-import translations from "../../data/translations.json";
-import "./TranslationViewer.css";
+import PropTypes from "prop-types";
 import DOMPurify from "dompurify";
 import { marked } from "marked";
+import translations from "../../data/translations.json";
+import "./TranslationViewer.css";
 
 const TranslationViewer = ({ page }) => {
   const [isViewerOpen, setIsViewerOpen] = useState(false);
@@ -43,6 +44,10 @@ const TranslationViewer = ({ page }) => {
       />
     </div>
   );
+};
+
+TranslationViewer.propTypes = {
+  page: PropTypes.number.isRequired,
 };
 
 export default TranslationViewer;

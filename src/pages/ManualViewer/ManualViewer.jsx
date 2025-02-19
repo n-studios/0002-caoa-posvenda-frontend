@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import TranslationViewer from "../../components/manual-components/TranslationViewer";
 import PdfViewer from "../../components/manual-components/PdfViewer";
 import "./ManualViewer.css";
 
@@ -11,10 +10,13 @@ const ManualViewer = () => {
   const [manual, setManual] = useState(null);
   const [inputValue, setInputValue] = useState("1");
 
-  const totalPageCounts = {
-    Tiggo7ProHybrid: 2071,
-    Tiggo8ProPHEV: 3245,
-  };
+  const totalPageCounts = useMemo(
+    () => ({
+      Tiggo7ProHybrid: 2071,
+      Tiggo8ProPHEV: 3245,
+    }),
+    []
+  );
 
   useEffect(() => {
     const initialManual = searchParams.get("manual");
@@ -26,13 +28,7 @@ const ManualViewer = () => {
       setPage(initialPage);
       setInputValue(initialPage.toString());
     }
-  }, [searchParams]);
-
-  useEffect(() => {
-    if (manual) {
-      setTotalPages(totalPageCounts[manual]);
-    }
-  }, [manual]);
+  }, [searchParams, totalPageCounts]);
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -103,7 +99,6 @@ const ManualViewer = () => {
               min="1"
               max={totalPages}
             />
-            <TranslationViewer page={page} />
             <PdfViewer manual={manual} page={page} />
           </>
         )}
