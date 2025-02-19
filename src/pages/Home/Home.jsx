@@ -16,10 +16,6 @@ const Home = () => {
         onClick={() => handleButtonClick("/trainer")}
         buttonText={"TRAINER"}
       />
-      <Button
-        onClick={() => handleButtonClick("/inventory")}
-        buttonText={"INVENTORY"}
-      />
     </div>
   );
 };
