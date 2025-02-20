@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/shared-components/Button";
 import RubricManager from "../../components/trainer-components/RubricManager";
 import QuestionManager from "../../components/trainer-components/QuestionManager";
+import ContactManager from "../../components/trainer-components/ContactManager";
 import "./Trainer.css";
 
 const API_BASE_URL =
@@ -221,6 +222,7 @@ const Trainer = () => {
             <h4>Pergunta: {selectedQuestion.question}</h4>
           </div>
         )}
+        <ContactManager />
       </div>
       <div className="return-button">
         <Button
