@@ -11,6 +11,8 @@ const manualJson = {
 };
 
 const PdfViewer = ({ manual, page }) => {
+  console.log(manual);
+  console.log(page);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const [pdfUrl, setPdfUrl] = useState(null);

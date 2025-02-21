@@ -44,10 +44,22 @@ const Chat = () => {
     let lastIndex = 0;
 
     while ((match = urlRegex.exec(text)) !== null) {
+      const url = new URL(match[0]);
+      const manual = url.searchParams.get("manual");
+      const page = url.searchParams.get("page");
+      let manualName;
+      if (manual === "Tiggo7ProHybrid") {
+        manualName = "Tiggo7ProHybrid";
+      } else {
+        manualName = "Tiggo8ProPHEV";
+      }
+      const newUrl = `${window.location.origin}/manual?manual=${manualName}&page=${page}`;
+
       parts.push(text.slice(lastIndex, match.index));
       parts.push(
-        `<a href="${match[0]}" target="_blank" rel="noopener noreferrer">${match[0]}</a>`
+        `<a href="${newUrl}" target="_blank" rel="noopener noreferrer">${newUrl}</a>`
       );
+
       lastIndex = match.index + match[0].length;
     }
 
