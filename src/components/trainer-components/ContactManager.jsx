@@ -1,14 +1,27 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import PropTypes from "prop-types";
 import "./ContactManager.css";
 
-const ContactManager = () => {
+const API_BASE_URL =
+  "https://0002-caoa-posvenda-api-evaluation.azurewebsites.net/api/v1";
+
+const ContactManager = ({ questionId, rubricId }) => {
   const [isConfigOpen, setIsConfigOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [update, setUpdate] = useState(false);
   const [create, setCreate] = useState(false);
   const [contacts, setContacts] = useState([]);
   const [selectedContacts, setSelectedContacts] = useState([]);
-  const [contact, setContact] = useState({ name: "", _id: "" });
+  const [contact, setContact] = useState({
+    _id: "",
+    name: "",
+    phone_number: "",
+  });
+  const [sessionStarted, setSessionStarted] = useState(false);
+
+  useEffect(() => {
+    fetchContacts();
+  }, []);
 
   const handleToggle = () => {
     if (isConfigOpen) {
@@ -23,16 +36,30 @@ const ContactManager = () => {
     }
   };
 
+  const fetchContacts = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/users/get_users`);
+      const data = await response.json();
+      setContacts(data);
+    } catch (error) {
+      console.error("Error fetching contacts:", error);
+    }
+  };
+
   const handleNewContactButton = () => {
     setCreate(!create);
     setUpdate(false);
-    setContact({ name: "", _id: "" });
+    setContact({ name: "", phone_number: "" });
   };
 
   const handleUpdateButton = (contact) => {
     setUpdate(true);
     setCreate(false);
     setContact(contact);
+  };
+
+  const handleCloseUpdate = () => {
+    setUpdate(false);
   };
 
   const handleInputChange = (e) => {
@@ -44,25 +71,79 @@ const ContactManager = () => {
   };
 
   const handleSendCreate = () => {
-    if (contact.name && contact._id) {
-      setContacts([...contacts, contact]);
-      setContact({ name: "", _id: "" });
-      setCreate(false);
+    if (contact.name && contact.phone_number) {
+      const newContact = {
+        name: contact.name,
+        phone_number: contact.phone_number,
+      };
+      fetch(`${API_BASE_URL}/users/create_user`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newContact),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to create contact");
+          }
+          return response.json();
+        })
+        .then(() => {
+          fetchContacts();
+          setContact({ name: "", phone_number: "" });
+        })
+        .catch((error) => console.error("Error creating contact:", error));
     }
   };
 
   const handleSendUpdate = () => {
-    const contactIndex = contacts.findIndex((c) => c._id === contact._id);
-    const updatedContacts = contacts;
-    updatedContacts[contactIndex] = { name: contact.name, _id: contact._id };
-    setContacts(updatedContacts);
-    setUpdate(false);
+    if (contact.name && contact.phone_number) {
+      const updatedContact = {
+        phone_number: contact.phone_number,
+        name: contact.name,
+        user_id: contact._id,
+      };
+      fetch(`${API_BASE_URL}/users/update_user`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedContact),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to update contact");
+          }
+          return response.json();
+        })
+        .then(() => {
+          fetchContacts();
+          setUpdate(false);
+        })
+        .catch((error) => console.error("Error updating contact:", error));
+    }
   };
 
   const handleDelete = (id) => {
-    setContacts(contacts.filter((c) => c._id !== id));
-    setSelectedContacts(selectedContacts.filter((c) => c._id !== id));
-    setUpdate(false);
+    fetch(`${API_BASE_URL}/users/delete_user/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to delete contact: ${response.msg}`);
+        }
+        return response.json();
+      })
+      .then(() => {
+        setContacts((prevContacts) => prevContacts.filter((c) => c._id !== id));
+        setSelectedContacts((prevSelected) =>
+          prevSelected.filter((c) => c._id !== id)
+        );
+      })
+      .catch((error) => {
+        console.error("Error deleting contact:", error);
+      });
   };
 
   const toggleContact = (contact) => {
@@ -81,6 +162,40 @@ const ContactManager = () => {
     );
   }, [contacts]);
 
+  const startWhatsApp = () => {
+    if (questionId === "" || rubricId === "") {
+      return alert("Selecione uma rúbrica e pergunta.");
+    }
+    const sessionObject = {
+      user_ids: selectedContacts.map((contact) => contact._id),
+      question_id: questionId,
+      rubric_id: rubricId,
+    };
+
+    fetch(`${API_BASE_URL}/whatsapp_session/start_session`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(sessionObject),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to start WhatsApp session");
+        }
+        return response.json();
+      })
+      .then(() => {
+        setSessionStarted(true);
+        setTimeout(() => {
+          setSessionStarted(false);
+        }, 3000);
+      })
+      .catch((error) =>
+        console.error("Error starting WhatsApp Session", error)
+      );
+  };
+
   return (
     <div className="contact-section">
       <div className="contact-header" onClick={handleToggle}>
@@ -91,6 +206,16 @@ const ContactManager = () => {
       <div
         className={`contact-content ${isConfigOpen ? "open" : ""} ${isClosing ? "closing" : ""}`}
       >
+        {sessionStarted && (
+          <h3
+            style={{
+              color: "dodgerblue",
+              alignSelf: "center",
+            }}
+          >
+            Pergunta Enviada!
+          </h3>
+        )}
         <div className="contact-display">
           <div className="available-contacts">
             <h2>Contatos Disponíveis</h2>
@@ -143,7 +268,9 @@ const ContactManager = () => {
           <div className="selected-contacts">
             <h2>Contatos Selecionados</h2>
             {selectedContacts.length > 0 && (
-              <button className="generic-button">Enviar</button>
+              <button className="generic-button" onClick={startWhatsApp}>
+                Enviar
+              </button>
             )}
             <div className="selected-container">
               <ul>
@@ -181,9 +308,9 @@ const ContactManager = () => {
             />
             <input
               type="text"
-              name="_id"
+              name="phone_number"
               placeholder="Telefone: somente numeros..."
-              value={contact._id}
+              value={contact.phone_number}
               onChange={handleInputChange}
             />
             <button className="generic-button" onClick={handleSendCreate}>
@@ -194,6 +321,13 @@ const ContactManager = () => {
 
         {update && (
           <div className="crud-contact">
+            <button
+              className="generic-button"
+              style={{ marginBottom: "10px" }}
+              onClick={handleCloseUpdate}
+            >
+              Fechar
+            </button>
             <input
               type="text"
               name="name"
@@ -203,9 +337,9 @@ const ContactManager = () => {
             />
             <input
               type="text"
-              name="_id"
+              name="phone_number"
               placeholder="Telefone: somente numeros..."
-              value={contact._id}
+              value={contact.phone_number}
               onChange={handleInputChange}
             />
             <div className="controls">
@@ -218,6 +352,11 @@ const ContactManager = () => {
       </div>
     </div>
   );
+};
+
+ContactManager.propTypes = {
+  questionId: PropTypes.string.isRequired,
+  rubricId: PropTypes.string.isRequired,
 };
 
 export default ContactManager;
