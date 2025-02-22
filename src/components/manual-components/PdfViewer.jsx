@@ -35,11 +35,7 @@ const PdfViewer = ({ manual, page }) => {
       return;
     }
 
-    console.log("Page Key:", pageKey);
-
     let pdfFileId = manualJson[manual][pageKey];
-
-    console.log("PDF File ID:", pdfFileId);
 
     if (!pdfFileId) {
       setError(true);
