@@ -246,7 +246,7 @@ const ContactManager = ({ questionId, rubricId }) => {
                         onClick={() => handleUpdateButton(contact)}
                       >
                         <img
-                          src="src/assets/edit_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg"
+                          src="/edit_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg"
                           alt="edit"
                         />
                       </button>
@@ -255,7 +255,7 @@ const ContactManager = ({ questionId, rubricId }) => {
                         onClick={() => handleDelete(contact._id)}
                       >
                         <img
-                          src="src/assets/delete_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg"
+                          src="/delete_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg"
                           alt="delete"
                         />
                       </button>
