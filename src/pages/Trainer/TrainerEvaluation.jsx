@@ -27,12 +27,10 @@ const TrainerEvaluation = () => {
             handleSelectedSession={handleSessionSelect}
           />
         </div>
-        <div className="answer-display">
-          <AnswerDisplay
-            API_BASE_URL={API_BASE_URL}
-            selectedSession={selectedSession}
-          />
-        </div>
+        <AnswerDisplay
+          API_BASE_URL={API_BASE_URL}
+          selectedSession={selectedSession}
+        />
       </div>
       <div className="return-button">
         <Button
