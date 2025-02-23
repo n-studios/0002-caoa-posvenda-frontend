@@ -5,6 +5,7 @@ import Chat from "./pages/Chat/Chat";
 import Trainer from "./pages/Trainer/Trainer";
 import TrainerDemo from "./pages/Trainer/TrainerDemo";
 import ManualViewer from "./pages/ManualViewer/ManualViewer";
+import TrainerEvaluation from "./pages/Trainer/TrainerEvaluation";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/trainer" element={<Trainer />} />
+          <Route path="/trainer/evaluation" element={<TrainerEvaluation />} />
           <Route path="/trainer/demo" element={<TrainerDemo />} />
           <Route path="/manual" element={<ManualViewer />} />
         </Routes>

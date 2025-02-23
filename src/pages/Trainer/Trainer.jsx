@@ -227,11 +227,17 @@ const Trainer = () => {
         <ContactManager questionId={question} rubricId={selectedRubric} />
       </div>
       <div className="return-button">
+      <Button
+          id="evaluation"
+          onClick={() => navigate("/trainer/evaluation")}
+          buttonText={"Avaliação"}
+        />
         <Button
           id="demo"
           onClick={() => navigate("/trainer/demo")}
           buttonText={"Demonstração"}
         />
+
         <Button onClick={() => navigate("/")} buttonText={"Página inicial"} />
       </div>
     </div>

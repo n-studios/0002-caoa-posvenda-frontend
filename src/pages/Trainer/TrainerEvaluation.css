@@ -1,21 +1,13 @@
-.trainer-demo-page {
-    display: flex;
-    height: 85vh;
+.trainer-evaluation-page {
+    display: block;
+    width: 95vw;
+    margin-left: auto;
+    margin-right: auto;
+  
   
   }
   
-  .trainer-demo-sidebar{
-    width:30vw;
-    overflow-y: auto;
-    margin-top: 10px;
-    margin-left: 10px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-  }
-  
-  .trainer-demo-container {
+  .trainer-evaluation-container {
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -26,13 +18,24 @@
       overflow: hidden;
       padding: 15px;
     }
+
+    .trainer-evaluation-sidebar{
+        width:30vw;
+        overflow-y: auto;
+        margin-top: 10px;
+        margin-left: 10px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+      }
     
-    .trainer-demo-container h1 {
+    .trainer-evaluation-container h1 {
       font-size: 24px;
       color: #333;
     }
     
-    .trainer-demo-container h4 {
+    .trainer-evaluation-container h4 {
       margin: 2px;
       color: #333;
     }
@@ -52,28 +55,31 @@
       background-color: #333;
     }
   
-
+    #demo, #evaluation {
+      margin-right: 20px;
+    }
+    
   /* Responsive Design */
   @media (max-width: 768px) {
-      .trainer-demo-page {
+      .trainer-evaluation-page {
         flex-direction: column;
         width: 96vw;
         height: 130vh;
       }
   
-      .trainer-demo-sidebar {
+      .trainer-evaluation-sidebar {
         width: auto;
         margin: 0; 
         padding: 3px;
       }
     
-      .trainer-demo-container {
+      .trainer-evaluation-container {
         margin-top: 5px;
         margin-right: 0;
         margin-left: 0;
       }
     
-      .trainer-demo-container h1 {
+      .trainer-evaluation-container h1 {
         font-size: 20px;
       }
     
@@ -83,14 +89,14 @@
         padding: 3px 5px;
       }
     }
-
+    
     @media (max-width: 480px) {
-      .trainer-demo-page {
+      .trainer-evaluation-page {
         flex-direction: column;
         width: 95vw;
       }
   
-      .trainer-demo-container h1 {
+      .trainer-evaluation-container h1 {
         font-size: 18px;
       }
   
