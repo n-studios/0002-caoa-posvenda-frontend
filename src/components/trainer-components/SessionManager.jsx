@@ -43,12 +43,13 @@ const SessionManager = ({ API_BASE_URL, handleSelectedSession }) => {
   }
 
   const handleSessionChange = (event) => {
-    setSelectedSession(event.target.value);
-    handleSelectedSession(selectedSession);
+    const newSession = event.target.value;
+    setSelectedSession(newSession);
+    handleSelectedSession(newSession);
   };
 
   return (
-    <div>
+    <>
       <label htmlFor="session-dropdown">Selecione uma sessão:</label>
       <select
         id="session-dropdown"
@@ -56,13 +57,14 @@ const SessionManager = ({ API_BASE_URL, handleSelectedSession }) => {
         value={selectedSession}
         onChange={handleSessionChange}
       >
+        <option value="">Sessões Disponíveis</option>
         {lastFourSessions.map((session) => (
           <option key={session._id} value={session._id}>
             {`Sessão iniciada ${formatObjectIdTimestamp(session._id)}`}
           </option>
         ))}
       </select>
-    </div>
+    </>
   );
 };
 

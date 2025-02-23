@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SessionManager from "../../components/trainer-components/SessionManager";
+import AnswerDisplay from "../../components/trainer-components/AnswerDisplay";
 import Button from "../../components/shared-components/Button";
 import "./TrainerEvaluation.css";
 
@@ -24,6 +25,12 @@ const TrainerEvaluation = () => {
           <SessionManager
             API_BASE_URL={API_BASE_URL}
             handleSelectedSession={handleSessionSelect}
+          />
+        </div>
+        <div className="answer-display">
+          <AnswerDisplay
+            API_BASE_URL={API_BASE_URL}
+            selectedSession={selectedSession}
           />
         </div>
       </div>
