@@ -215,6 +215,7 @@ const TrainerDemo = () => {
       rubric: getRubric.rubric,
       rating_system: getRubric.rating_system,
       user_input: inputText,
+      user_id: "67ba0575e24f4ccddbd82a27",
     };
 
     setMessages((prevMessages) => [
@@ -299,11 +300,11 @@ const TrainerDemo = () => {
           </div>
         )}
         <ChatDisplay messages={messages} />
-        <TrainerTextArea 
-        inputText={inputText}
-        setInputText={setInputText}
-        onSendMessage={handleSendEvaluation}
-        isLoading={isLoading}
+        <TrainerTextArea
+          inputText={inputText}
+          setInputText={setInputText}
+          onSendMessage={handleSendEvaluation}
+          isLoading={isLoading}
         />
         {error && <ErrorDisplay error={error} />}
         {isLoading && <Loader />}

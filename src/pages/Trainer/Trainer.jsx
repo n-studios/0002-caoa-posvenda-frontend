@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/shared-components/Button";
 import RubricManager from "../../components/trainer-components/RubricManager";
 import QuestionManager from "../../components/trainer-components/QuestionManager";
+import ContactManager from "../../components/trainer-components/ContactManager";
 import "./Trainer.css";
 
 const API_BASE_URL =
@@ -19,6 +20,7 @@ const Trainer = () => {
   });
   const [questions, setQuestions] = useState([]);
   const [selectedQuestion, setSelectedQuestion] = useState(null);
+  const [question, setQuestion] = useState("");
 
   useEffect(() => {
     fetchRubrics();
@@ -137,6 +139,7 @@ const Trainer = () => {
     const selectedId = e.target.value;
     const selectedQuestion = questions.find((q) => q._id === selectedId);
     setSelectedQuestion(selectedQuestion);
+    setQuestion(selectedId);
   };
 
   const handleCreateQuestion = (question) => {
@@ -221,13 +224,20 @@ const Trainer = () => {
             <h4>Pergunta: {selectedQuestion.question}</h4>
           </div>
         )}
+        <ContactManager questionId={question} rubricId={selectedRubric} />
       </div>
       <div className="return-button">
+      <Button
+          id="evaluation"
+          onClick={() => navigate("/trainer/evaluation")}
+          buttonText={"Avaliação"}
+        />
         <Button
           id="demo"
           onClick={() => navigate("/trainer/demo")}
           buttonText={"Demonstração"}
         />
+
         <Button onClick={() => navigate("/")} buttonText={"Página inicial"} />
       </div>
     </div>
